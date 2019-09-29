@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<configuration>  
+
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">  
+    <layout class="ch.qos.logback.classic.PatternLayout">  
+      <pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} - %msg%n</pattern>  
+    </layout>  
+  </appender>
+
+  <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+      </rollingPolicy>
+      <encoder>
+      <pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} - %msg%n</pattern>  
+      </encoder>
+  </appender>
+  
+   <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+   	  <filter class = "ch.qos.logback.classic.filter.LevelFilter">
+   	  	 <level>ERROR</level>
+   	  	 <onMatch>ACCEPT</onMatch>
+   	  	 <onMismatch>DENY</onMismatch>
+   	  </filter>
+      <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+      </rollingPolicy>
+      <encoder>
+      <pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} - %msg%n</pattern>  
+      </encoder>
+  </appender>
+  
+  <root level="INFO">
+    <appender-ref ref="stdout" />  
+    <appender-ref ref="file" />
+    <appender-ref ref="file-error" />
+  </root>  
+</configuration>  
